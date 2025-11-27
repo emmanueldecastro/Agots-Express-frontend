@@ -1,6 +1,5 @@
 // DashboardSidebar.jsx
 import {
-  Calendar,
   ClipboardList,
   Home,
   LineChart,
@@ -21,7 +20,7 @@ export const DashboardSidebar = () => {
     ["Dashboard", Home, "/admin-dashboard"],
     ["Orders", ClipboardList, "/admin-dashboard"],
     ["Customers", Users, "/admin-dashboard"],
-    ["Reservations", Calendar, "/admin-dashboard"],
+    // ❌ Reservations Removed
     ["Menu", Utensils, "/admin-dashboard"],
     ["Feedback", MessageSquare, "/admin-dashboard"],
     ["Announcements", ClipboardList, "/admin-dashboard"],
@@ -85,12 +84,10 @@ export const DashboardSidebar = () => {
                 active === label ? "bg-white/20" : "hover:bg-white/10"
               }`}
             >
-              {/* Icon container stays fixed */}
               <div className="flex-shrink-0 w-6 flex justify-center">
                 <Icon size={20} />
               </div>
 
-              {/* Label */}
               <span
                 className={`ml-3 transition-all duration-500 ease-in-out overflow-hidden whitespace-nowrap ${
                   isCollapsed ? "opacity-0 max-w-0" : "opacity-100 max-w-full"
