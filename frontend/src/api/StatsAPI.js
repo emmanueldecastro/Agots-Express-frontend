@@ -1,10 +1,9 @@
-// api/StatsAPI.js
 import axios from "axios";
 
-// Fetch dashboard stats
+// Fetch stats including today's revenue
 export const fetchStats = async () => {
   const res = await axios.get("http://localhost:5000/dashboard/stats");
-  return res.data;
+  return res.data; // returns { totalOrders, totalCustomers, totalRevenue, todayRevenue, averageFeedback }
 };
 
 // Fetch recent orders

@@ -1,19 +1,19 @@
+import axios from "axios";
 import { MessageSquare, ShoppingCart, TrendingUp, Users } from "lucide-react";
 import { useEffect, useState } from "react";
-import { fetchStats, fetchRecentOrders } from "../api/StatsAPI.js";
 import { DashboardHeader } from "../ui/DashboardHeader";
 import { DashboardSidebar } from "../ui/DashboardSidebar";
 import { OrdersChart } from "../ui/OrdersChart";
+import { RecentOrders } from "../ui/RecentOrders";
 import { SalesChart } from "../ui/SalesChart";
 import { StatsCard } from "../ui/StatsCard";
-
-import { RecentOrders } from "../ui/RecentOrders";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
     totalOrders: 0,
     totalCustomers: 0,
     totalRevenue: 0,
+    todayRevenue: 0,
     averageFeedback: 0,
   });
 
@@ -22,13 +22,13 @@ const AdminDashboard = () => {
   useEffect(() => {
     const loadDashboard = async () => {
       try {
-        const statsData = await fetchStats();
-        setStats(statsData);
+        const statsRes = await axios.get("http://localhost:5000/dashboard/stats");
+        setStats(statsRes.data);
 
-        const ordersData = await fetchRecentOrders();
-        setRecentOrders(ordersData);
+        const ordersRes = await axios.get("http://localhost:5000/dashboard/recent-orders");
+        setRecentOrders(ordersRes.data || []);
       } catch (err) {
-        console.error("Failed to fetch dashboard data:", err);
+        console.error("Failed to load dashboard data:", err);
       }
     };
     loadDashboard();
@@ -39,9 +39,7 @@ const AdminDashboard = () => {
       <DashboardSidebar />
       <div className="pl-64 transition-all duration-300">
         <DashboardHeader />
-
         <main className="p-6 space-y-6">
-          {/* Page Title */}
           <div className="mb-10">
             <h1 className="text-3xl font-bold text-gray-900 mb-1">
               Dashboard Overview
@@ -51,7 +49,6 @@ const AdminDashboard = () => {
             </p>
           </div>
 
-          {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <StatsCard
               title="Total Orders"
@@ -70,8 +67,8 @@ const AdminDashboard = () => {
               iconColor="bg-blue-400"
             />
             <StatsCard
-              title="Revenue"
-              value={`₱${stats.totalRevenue}`}
+              title="Revenue Today"
+              value={`₱${stats.todayRevenue || 0}`}
               change="+23% from yesterday"
               changeType="positive"
               icon={TrendingUp}
@@ -87,13 +84,11 @@ const AdminDashboard = () => {
             />
           </div>
 
-          {/* Charts Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <SalesChart />
             <OrdersChart />
           </div>
 
-          {/* Recent Orders Table */}
           <RecentOrders orders={recentOrders} />
         </main>
       </div>

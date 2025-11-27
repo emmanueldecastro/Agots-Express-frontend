@@ -6,6 +6,15 @@ export const RecentOrders = ({ orders }) => {
     cancelled: "bg-red-500 text-white",
   };
 
+  if (!orders || orders.length === 0) {
+    return (
+      <div className="bg-white rounded-xl shadow p-6">
+        <h3 className="font-semibold mb-4 text-lg">Recent Orders</h3>
+        <p className="text-gray-500">No recent orders found.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <h3 className="font-semibold mb-4 text-lg">Recent Orders</h3>
@@ -15,7 +24,6 @@ export const RecentOrders = ({ orders }) => {
             <tr>
               <th className="px-6 py-4 text-center">Order ID</th>
               <th className="px-6 py-4 text-center">Customer</th>
-              <th className="px-6 py-4 text-center">Orders</th>
               <th className="px-6 py-4 text-center">Status</th>
               <th className="px-6 py-4 text-center">Price</th>
             </tr>
@@ -30,22 +38,19 @@ export const RecentOrders = ({ orders }) => {
                   #{order.id}
                 </td>
                 <td className="px-6 py-4 text-center align-middle">
-                  {order.customer_name}
-                </td>
-                <td className="px-6 py-4 text-center text-gray-500 text-sm align-middle">
-                  {order.items || "N/A"}
+                  {order.customer_name || "Unknown"}
                 </td>
                 <td className="px-6 py-4 text-center align-middle">
                   <span
                     className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                      variants[order.status]
+                      variants[order.status] || "bg-gray-100 text-gray-700"
                     }`}
                   >
-                    {order.status}
+                    {order.status || "pending"}
                   </span>
                 </td>
                 <td className="px-6 py-4 text-center font-bold text-yellow-600 align-middle">
-                  ₱{order.total_amount}
+                  ₱{order.total_amount || 0}
                 </td>
               </tr>
             ))}
