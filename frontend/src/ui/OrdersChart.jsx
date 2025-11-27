@@ -1,18 +1,25 @@
+import axios from "axios";
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip,
+} from "chart.js";
 import { useEffect, useRef, useState } from "react";
 import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
+import { useInView } from "react-intersection-observer";
+
+ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
   Title,
   Tooltip,
-  Legend,
-} from "chart.js";
-import { useInView } from "react-intersection-observer";
-import axios from "axios";
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+  Legend
+);
 
 export const OrdersChart = () => {
   const chartRef = useRef(null);
@@ -35,7 +42,9 @@ export const OrdersChart = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/dashboard/orders-by-hour");
+        const res = await axios.get(
+          "http://localhost:5000/dashboard/orders-by-hour"
+        );
         setFinalData({
           labels: res.data.labels,
           datasets: [{ ...initialData.datasets[0], data: res.data.data }],

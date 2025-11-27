@@ -9,23 +9,18 @@ import { SalesChart } from "../ui/SalesChart";
 import { StatsCard } from "../ui/StatsCard";
 
 const AdminDashboard = () => {
-  const [stats, setStats] = useState({
-    totalOrders: 0,
-    totalCustomers: 0,
-    totalRevenue: 0,
-    todayRevenue: 0,
-    averageFeedback: 0,
-  });
-
+  const [stats, setStats] = useState(null);
   const [recentOrders, setRecentOrders] = useState([]);
 
   useEffect(() => {
     const loadDashboard = async () => {
       try {
-        const statsRes = await axios.get("http://localhost:5000/dashboard/stats");
-        setStats(statsRes.data);
+        const res = await axios.get("http://localhost:5000/dashboard/stats");
+        setStats(res.data);
 
-        const ordersRes = await axios.get("http://localhost:5000/dashboard/recent-orders");
+        const ordersRes = await axios.get(
+          "http://localhost:5000/dashboard/recent-orders"
+        );
         setRecentOrders(ordersRes.data || []);
       } catch (err) {
         console.error("Failed to load dashboard data:", err);
@@ -33,6 +28,18 @@ const AdminDashboard = () => {
     };
     loadDashboard();
   }, []);
+
+  // Compute percentage safely
+  const getChangePercent = (current, previous) => {
+    current = Number(current || 0);
+    previous = Number(previous || 0);
+    if (previous === 0 && current === 0) return "0%";
+    if (previous === 0) return "+100%";
+    const percent = ((current - previous) / previous) * 100;
+    return (percent > 0 ? "+" : "") + percent.toFixed(1) + "%";
+  };
+
+  if (!stats) return null;
 
   return (
     <div className="min-h-screen bg-[#F4F6F9]">
@@ -53,32 +60,64 @@ const AdminDashboard = () => {
             <StatsCard
               title="Total Orders"
               value={stats.totalOrders}
-              change="+12% from yesterday"
-              changeType="positive"
+              change={
+                getChangePercent(stats.totalOrders, stats.totalOrdersPrevious) +
+                " from yesterday"
+              }
+              changeType={
+                stats.totalOrders >= stats.totalOrdersPrevious
+                  ? "positive"
+                  : "negative"
+              }
               icon={ShoppingCart}
               iconColor="bg-yellow-400"
             />
             <StatsCard
               title="Customers"
               value={stats.totalCustomers}
-              change="+8% from last week"
-              changeType="positive"
+              change={
+                getChangePercent(
+                  stats.totalCustomers,
+                  stats.totalCustomersPrevious
+                ) + " from last week"
+              }
+              changeType={
+                stats.totalCustomers >= stats.totalCustomersPrevious
+                  ? "positive"
+                  : "negative"
+              }
               icon={Users}
               iconColor="bg-blue-400"
             />
             <StatsCard
               title="Revenue Today"
-              value={`₱${stats.todayRevenue || 0}`}
-              change="+23% from yesterday"
-              changeType="positive"
+              value={`₱${stats.todayRevenue}`}
+              change={
+                getChangePercent(stats.todayRevenue, stats.revenuePrevious) +
+                " from yesterday"
+              }
+              changeType={
+                stats.todayRevenue >= stats.revenuePrevious
+                  ? "positive"
+                  : "negative"
+              }
               icon={TrendingUp}
               iconColor="bg-green-500"
             />
             <StatsCard
               title="Feedback"
               value={stats.averageFeedback}
-              change="96% satisfaction"
-              changeType="neutral"
+              change={
+                getChangePercent(
+                  stats.averageFeedback,
+                  stats.feedbackPrevious
+                ) + " satisfaction"
+              }
+              changeType={
+                stats.averageFeedback >= stats.feedbackPrevious
+                  ? "positive"
+                  : "negative"
+              }
               icon={MessageSquare}
               iconColor="bg-orange-400"
             />
