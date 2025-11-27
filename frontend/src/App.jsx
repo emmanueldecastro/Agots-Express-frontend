@@ -1,6 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Login.jsx";
-import AdminDashboard from "./components/AdminDashboard.jsx";
+import AdminDashboard from "./users/AdminDashboard.jsx";
+import CustomerDashboard from "./users/CustomerDashboard.jsx";
+import RiderDashboard from "./users/RiderDashboard.jsx";
+import StaffDashboard from "./users/StaffDashboard.jsx";
 
 function App() {
   return (
@@ -9,8 +12,11 @@ function App() {
         {/* Default route → Login page */}
         <Route path="/" element={<Login />} />
 
-        {/* After login → Dashboard */}
+        {/* Dashboards for each role */}
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/customer-dashboard" element={<CustomerDashboard />} />
+        <Route path="/staff-dashboard" element={<StaffDashboard />} />
+        <Route path="/rider-dashboard" element={<RiderDashboard />} />
       </Routes>
     </BrowserRouter>
   );

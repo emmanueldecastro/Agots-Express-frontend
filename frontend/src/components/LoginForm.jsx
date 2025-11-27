@@ -1,44 +1,38 @@
 import { useState } from "react";
 
-const LoginForm = ({
-  loginUsername,
-  setLoginUsername,
-  loginPassword,
-  setLoginPassword,
-  handleLogin,
-}) => {
-  // ✅ State for show/hide password
+const LoginForm = ({ username, setUsername, password, setPassword, handleLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <form onSubmit={handleLogin} className="space-y-4">
       {/* Username */}
       <div>
-        <label className="block text-gray-700 mb-1 text-sm">Username:</label>
+        <label className="block text-gray-700 mb-1 text-sm sm:text-base">
+          Username:
+        </label>
         <input
           type="text"
           placeholder="Enter username"
-          value={loginUsername}
-          onChange={(e) => setLoginUsername(e.target.value)}
-          className="w-full border border-gray-300 rounded-md p-2 text-sm"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full border border-gray-300 rounded-md p-2 text-sm sm:text-base"
           required
         />
       </div>
 
-      {/* Password with show/hide */}
+      {/* Password with toggle */}
       <div className="relative">
-        <label className="block text-gray-700 mb-1 text-sm">Password:</label>
-
+        <label className="block text-gray-700 mb-1 text-sm sm:text-base">
+          Password:
+        </label>
         <input
           type={showPassword ? "text" : "password"}
           placeholder="********"
-          value={loginPassword}
-          onChange={(e) => setLoginPassword(e.target.value)}
-          className="w-full border border-gray-300 rounded-md p-2 text-sm pr-10"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full border border-gray-300 rounded-md p-2 pr-10 text-sm sm:text-base"
           required
         />
-
-        {/* 👁️ Show/Hide Password Button (same as your sample) */}
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
@@ -54,7 +48,7 @@ const LoginForm = ({
           >
             {showPassword ? (
               <>
-                {/* Eye open */}
+                {/* Open eye */}
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -68,17 +62,9 @@ const LoginForm = ({
               </>
             ) : (
               <>
-                {/* Eye closed */}
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3 3l18 18"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9.879 9.879a3 3 0 104.242 4.242"
-                />
+                {/* Closed eye */}
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l18 18" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 9.879a3 3 0 104.242 4.242" />
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -90,10 +76,10 @@ const LoginForm = ({
         </button>
       </div>
 
-      {/* Submit */}
+      {/* Submit Button */}
       <button
         type="submit"
-        className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-2 rounded-md text-sm"
+        className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-semibold py-2 rounded-md flex items-center justify-center gap-2 text-sm sm:text-base"
       >
         Login
       </button>

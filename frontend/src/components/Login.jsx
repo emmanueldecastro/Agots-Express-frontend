@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { loginAllRoles } from "../api/Api.js";
 import LoginForm from "./LoginForm";
-import SignupForm from "./SignupForm";
+import SignupForm from "./SignupForm"; // keep your existing signup
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,33 +25,33 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          username: loginUsername,
-          password: loginPassword,
-        }),
-      });
+      const data = await loginAllRoles(loginUsername, loginPassword);
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.message || "Login failed");
-        return;
-      }
-
-      // Save token if your backend returns one
       if (data.token) localStorage.setItem("token", data.token);
+      localStorage.setItem("role", data.role);
 
-      alert("Login Successful!");
+      alert(`Login Successful! You are logged in as ${data.role}`);
 
-      // 🔥 Redirect to admin dashboard
-      navigate("/admin-dashboard");
+      // 🔥 Redirect based on role
+      switch (data.role) {
+        case "admin":
+          navigate("/admin-dashboard"); // AdminDashboard.jsx
+          break;
+        case "customer":
+          navigate("/customer-dashboard"); // CustomerDashboard.jsx
+          break;
+        case "staff":
+          navigate("/staff-dashboard"); // StaffDashboard.jsx
+          break;
+        case "rider":
+          navigate("/rider-dashboard"); // RiderDashboard.jsx
+          break;
+        default:
+          navigate("/"); // fallback
+      }
     } catch (err) {
       console.error("Login error:", err);
-      alert("Failed to connect to the server.");
+      alert(err.message || "Failed to connect to the server.");
     }
   };
 
@@ -60,6 +61,7 @@ const Login = () => {
         {/* Logo */}
         <div className="flex justify-center mb-4 sm:mb-6">
           <div className="bg-yellow-400 rounded-full p-3 sm:p-4">
+            {/* Keep your existing SVG */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="64"
@@ -116,10 +118,10 @@ const Login = () => {
             {/* LOGIN FORM */}
             <div className="w-full flex-shrink-0">
               <LoginForm
-                loginUsername={loginUsername}
-                setLoginUsername={setLoginUsername}
-                loginPassword={loginPassword}
-                setLoginPassword={setLoginPassword}
+                username={loginUsername}
+                setUsername={setLoginUsername}
+                password={loginPassword}
+                setPassword={setLoginPassword}
                 handleLogin={handleLogin}
               />
             </div>
@@ -145,9 +147,9 @@ const Login = () => {
         </div>
 
         <div className="text-center mt-4">
-          <Link to="/" className="text-gray-700 hover:text-gray-900 text-sm">
+          <a href="/" className="text-gray-700 hover:text-gray-900 text-sm">
             Back to Home
-          </Link>
+          </a>
         </div>
       </div>
     </div>
