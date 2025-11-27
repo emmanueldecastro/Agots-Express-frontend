@@ -28,6 +28,7 @@ ChartJS.register(
 export const SalesChart = () => {
   const chartRef = useRef(null);
   const { ref, inView } = useInView({ threshold: 0.3 });
+
   const [initialData, setInitialData] = useState({
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
@@ -43,21 +44,25 @@ export const SalesChart = () => {
       },
     ],
   });
+
   const [finalData, setFinalData] = useState(initialData);
 
+  const fetchSales = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/dashboard/sales-weekly");
+      setFinalData({
+        labels: res.data.labels,
+        datasets: [{ ...initialData.datasets[0], data: res.data.data }],
+      });
+    } catch (err) {
+      console.error("Failed to fetch weekly sales:", err);
+    }
+  };
+
   useEffect(() => {
-    const fetchSales = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/dashboard/sales-weekly");
-        setFinalData({
-          labels: res.data.labels,
-          datasets: [{ ...initialData.datasets[0], data: res.data.data }],
-        });
-      } catch (err) {
-        console.error("Failed to fetch weekly sales:", err);
-      }
-    };
-    fetchSales();
+    fetchSales(); // initial fetch
+    const interval = setInterval(fetchSales, 30000); // every 30 seconds
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {

@@ -39,21 +39,24 @@ export const OrdersChart = () => {
 
   const [finalData, setFinalData] = useState(initialData);
 
+  const fetchOrders = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/dashboard/orders-by-hour"
+      );
+      setFinalData({
+        labels: res.data.labels,
+        datasets: [{ ...initialData.datasets[0], data: res.data.data }],
+      });
+    } catch (err) {
+      console.error("Failed to fetch orders by hour:", err);
+    }
+  };
+
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const res = await axios.get(
-          "http://localhost:5000/dashboard/orders-by-hour"
-        );
-        setFinalData({
-          labels: res.data.labels,
-          datasets: [{ ...initialData.datasets[0], data: res.data.data }],
-        });
-      } catch (err) {
-        console.error("Failed to fetch orders by hour:", err);
-      }
-    };
-    fetchOrders();
+    fetchOrders(); // initial fetch
+    const interval = setInterval(fetchOrders, 15000); // every 15 seconds
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
