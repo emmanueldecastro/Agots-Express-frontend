@@ -19,6 +19,9 @@ import StaffDashboard from "./users/StaffDashboard.jsx";
 // Landing Page
 import Landing from "./components/Landing.jsx";
 
+// Checkout Page
+import Checkout from "./components/Checkout.jsx";
+
 import { CartProvider } from "./contexts/CartContext";
 
 function App() {
@@ -48,6 +51,9 @@ function App() {
 
             {/* Order Menu */}
             <Route path="/order-menu" element={<OrderMenu />} />
+
+            {/* Checkout */}
+            <Route path="/checkout" element={<Checkout />} />
 
             {/* Analytics */}
             <Route path="/analytics" element={<Analytics />} />
