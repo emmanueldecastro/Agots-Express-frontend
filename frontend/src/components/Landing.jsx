@@ -15,30 +15,10 @@ import { Card, CardContent } from "../ui/Card";
 
 const Landing = () => {
   const featuredDishes = [
-    {
-      name: "Chicken Adobo",
-      price: "₱280",
-      description: "Classic braised chicken in soy and vinegar",
-      image: "🍗",
-    },
-    {
-      name: "Lechon Kawali",
-      price: "₱380",
-      description: "Crispy deep-fried pork belly",
-      image: "🥓",
-    },
-    {
-      name: "Sinigang na Baboy",
-      price: "₱350",
-      description: "Sour pork soup with tamarind",
-      image: "🍲",
-    },
-    {
-      name: "Kare-Kare",
-      price: "₱420",
-      description: "Oxtail stew in rich peanut sauce",
-      image: "🍛",
-    },
+    { name: "Chicken Adobo", price: "₱280", description: "Classic braised chicken in soy and vinegar", image: "🍗" },
+    { name: "Lechon Kawali", price: "₱380", description: "Crispy deep-fried pork belly", image: "🥓" },
+    { name: "Sinigang na Baboy", price: "₱350", description: "Sour pork soup with tamarind", image: "🍲" },
+    { name: "Kare-Kare", price: "₱420", description: "Oxtail stew in rich peanut sauce", image: "🍛" },
   ];
 
   return (
@@ -46,44 +26,24 @@ const Landing = () => {
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-[#0A1A3F]/95 backdrop-blur-sm z-50 border-b border-[#FFFFFF]/10">
         <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between relative">
+            <div className="flex items-center gap-2 z-10">
               <div className="w-10 h-10 rounded-lg bg-[#F2C94C] flex items-center justify-center">
                 <UtensilsCrossed className="h-6 w-6 text-white" />
               </div>
-              <span className="text-2xl font-bold text-[#FFFFFF]">
-                Agot's Restaurant
-              </span>
+              <span className="text-2xl font-bold text-[#FFFFFF]">Agot's Restaurant</span>
             </div>
 
             {/* Centered Menu Links */}
-            <div className="hidden md:flex items-center gap-8 mx-auto">
-              <a
-                href="#menu"
-                className="text-[#FFFFFF]/80 hover:text-[#FFD966] transition-colors duration-300"
-              >
-                Menu
-              </a>
-              <a
-                href="#about"
-                className="text-[#FFFFFF]/80 hover:text-[#FFD966] transition-colors duration-300"
-              >
-                About
-              </a>
-              <a
-                href="#contact"
-                className="text-[#FFFFFF]/80 hover:text-[#FFD966] transition-colors duration-300"
-              >
-                Contact
-              </a>
+            <div className="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <a href="#menu" className="text-[#FFFFFF]/80 hover:text-[#FFD966] transition-colors duration-300">Menu</a>
+              <a href="#about" className="text-[#FFFFFF]/80 hover:text-[#FFD966] transition-colors duration-300">About</a>
+              <a href="#contact" className="text-[#FFFFFF]/80 hover:text-[#FFD966] transition-colors duration-300">Contact</a>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 z-10">
               <Link to="/login">
-                <Button
-                  variant="outline"
-                  className="border-[#FFD966] bg-[#FFD966] text-[#0A1A3F] hover:bg-[#FFC700] transition-colors duration-300"
-                >
+                <Button className="bg-[#FFD966] text-[#0A1A3F] hover:bg-[#FFF3B0] transition-colors duration-300">
                   Login
                 </Button>
               </Link>
@@ -103,24 +63,16 @@ const Landing = () => {
               Experience Authentic Filipino Flavors
             </h1>
             <p className="text-xl text-[#FFFFFF]/80 max-w-2xl mx-auto">
-              Since decades ago, Agot's Restaurant has been serving traditional
-              Filipino dishes made with locally sourced ingredients and love.
+              Since decades ago, Agot's Restaurant has been serving traditional Filipino dishes made with locally sourced ingredients and love.
             </p>
             <div className="flex items-center justify-center gap-4 pt-6">
               <Link to="/order">
-                <Button
-                  size="lg"
-                  className="bg-[#FFD966] text-[#0A1A3F] hover:bg-[#FFC700] text-lg px-8 transition-colors duration-300"
-                >
+                <Button className="bg-[#FFD966] text-[#0A1A3F] hover:bg-[#FFF3B0] text-lg px-8 transition-colors duration-300">
                   Order Now
                 </Button>
               </Link>
               <a href="#menu">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-[#FFD966] bg-[#FFD966]/20 text-[#0A1A3F] hover:bg-[#FFD966]/40 text-lg px-8 transition-colors duration-300"
-                >
+                <Button className="bg-[#FFD966]/20 text-[#0A1A3F] hover:bg-[#FFF3B0]/40 text-lg px-8 transition-colors duration-300">
                   View Menu
                 </Button>
               </a>
@@ -130,9 +82,7 @@ const Landing = () => {
             <div className="grid grid-cols-3 gap-8 pt-12 max-w-2xl mx-auto">
               <div className="space-y-1">
                 <div className="text-4xl font-bold text-[#FFD966]">40+</div>
-                <div className="text-sm text-[#FFFFFF]/70">
-                  Years Experience
-                </div>
+                <div className="text-sm text-[#FFFFFF]/70">Years Experience</div>
               </div>
               <div className="space-y-1">
                 <div className="text-4xl font-bold text-[#FFD966]">50K+</div>
@@ -151,12 +101,8 @@ const Landing = () => {
       <section id="menu" className="py-20 px-6">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-[#0A1A3F] mb-4">
-              Featured Dishes
-            </h2>
-            <p className="text-xl text-[#9B9B9B]">
-              Taste our signature Filipino specialties
-            </p>
+            <h2 className="text-4xl font-bold text-[#0A1A3F] mb-4">Featured Dishes</h2>
+            <p className="text-xl text-[#9B9B9B]">Taste our signature Filipino specialties</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -164,22 +110,11 @@ const Landing = () => {
               <Card key={idx} className="hover:shadow-xl transition-shadow">
                 <CardContent className="p-6">
                   <div className="text-6xl mb-4 text-center">{dish.image}</div>
-                  <h3 className="text-xl font-bold text-[#0A1A3F] mb-2">
-                    {dish.name}
-                  </h3>
-                  <p className="text-[#9B9B9B] text-sm mb-4">
-                    {dish.description}
-                  </p>
+                  <h3 className="text-xl font-bold text-[#0A1A3F] mb-2">{dish.name}</h3>
+                  <p className="text-[#9B9B9B] text-sm mb-4">{dish.description}</p>
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-[#FFD966]">
-                      {dish.price}
-                    </span>
-                    <Button
-                      size="sm"
-                      className="bg-[#FFD966] hover:bg-[#FFC700] transition-colors duration-300"
-                    >
-                      Order
-                    </Button>
+                    <span className="text-2xl font-bold text-[#FFD966]">{dish.price}</span>
+                    <Button className="bg-[#FFD966] hover:bg-[#FFF3B0] transition-colors duration-300">Order</Button>
                   </div>
                 </CardContent>
               </Card>
@@ -188,11 +123,7 @@ const Landing = () => {
 
           <div className="text-center mt-12">
             <Link to="/order">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-[#FFD966] bg-[#FFD966]/20 text-[#0A1A3F] hover:bg-[#FFD966]/40 transition-colors duration-300"
-              >
+              <Button className="bg-[#FFD966]/20 text-[#0A1A3F] hover:bg-[#FFF3B0]/40 transition-colors duration-300">
                 View Full Menu
               </Button>
             </Link>
@@ -209,13 +140,8 @@ const Landing = () => {
                 <div className="w-16 h-16 bg-gradient-to-tr from-[#FF8A00] to-[#FF3D00] rounded-full flex items-center justify-center mx-auto">
                   <ChefHat className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-[#0A1A3F]">
-                  Expert Chefs
-                </h3>
-                <p className="text-[#333333]">
-                  Experienced chefs preparing authentic Filipino recipes passed
-                  down through generations
-                </p>
+                <h3 className="text-xl font-bold text-[#0A1A3F]">Expert Chefs</h3>
+                <p className="text-[#333333]">Experienced chefs preparing authentic Filipino recipes passed down through generations</p>
               </CardContent>
             </Card>
 
@@ -224,13 +150,8 @@ const Landing = () => {
                 <div className="w-16 h-16 bg-gradient-to-tr from-[#4ADE80] to-[#16A34A] rounded-full flex items-center justify-center mx-auto">
                   <Award className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-[#0A1A3F]">
-                  Fresh Ingredients
-                </h3>
-                <p className="text-[#333333]">
-                  Only locally sourced, fresh ingredients to ensure quality and
-                  authentic flavors
-                </p>
+                <h3 className="text-xl font-bold text-[#0A1A3F]">Fresh Ingredients</h3>
+                <p className="text-[#333333]">Only locally sourced, fresh ingredients to ensure quality and authentic flavors</p>
               </CardContent>
             </Card>
 
@@ -239,13 +160,8 @@ const Landing = () => {
                 <div className="w-16 h-16 bg-gradient-to-tr from-[#FACC15] to-[#F59E0B] rounded-full flex items-center justify-center mx-auto">
                   <Star className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-[#0A1A3F]">
-                  5-Star Service
-                </h3>
-                <p className="text-[#333333]">
-                  Exceptional service and warm hospitality that makes you feel
-                  at home
-                </p>
+                <h3 className="text-xl font-bold text-[#0A1A3F]">5-Star Service</h3>
+                <p className="text-[#333333]">Exceptional service and warm hospitality that makes you feel at home</p>
               </CardContent>
             </Card>
           </div>
@@ -257,9 +173,7 @@ const Landing = () => {
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-[#0A1A3F] mb-4">
-                Visit Us Today
-              </h2>
+              <h2 className="text-4xl font-bold text-[#0A1A3F] mb-4">Visit Us Today</h2>
               <p className="text-xl text-[#9B9B9B]">We'd love to serve you!</p>
             </div>
 
@@ -272,9 +186,7 @@ const Landing = () => {
                     </div>
                     <div>
                       <h3 className="font-bold text-lg mb-1">Address</h3>
-                      <p className="text-[#9B9B9B]">
-                        123 Main Street, Manila, Philippines
-                      </p>
+                      <p className="text-[#9B9B9B]">123 Main Street, Manila, Philippines</p>
                     </div>
                   </div>
 
@@ -304,9 +216,7 @@ const Landing = () => {
                     </div>
                     <div>
                       <h3 className="font-bold text-lg mb-1">Hours</h3>
-                      <p className="text-[#9B9B9B]">
-                        Mon-Sat: 10:00 AM - 10:00 PM
-                      </p>
+                      <p className="text-[#9B9B9B]">Mon-Sat: 10:00 AM - 10:00 PM</p>
                       <p className="text-[#9B9B9B]">Sunday: Closed</p>
                     </div>
                   </div>
@@ -317,24 +227,10 @@ const Landing = () => {
                 <CardContent className="p-8">
                   <h3 className="font-bold text-xl mb-6">Send us a message</h3>
                   <form className="space-y-4">
-                    <input
-                      type="text"
-                      placeholder="Your Name"
-                      className="w-full px-4 py-3 rounded-lg border border-[#D1D5DB] bg-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#FFD966]"
-                    />
-                    <input
-                      type="email"
-                      placeholder="Your Email"
-                      className="w-full px-4 py-3 rounded-lg border border-[#D1D5DB] bg-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#FFD966]"
-                    />
-                    <textarea
-                      placeholder="Your Message"
-                      rows={4}
-                      className="w-full px-4 py-3 rounded-lg border border-[#D1D5DB] bg-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#FFD966] resize-none"
-                    />
-                    <Button className="w-full bg-[#FFD966] hover:bg-[#FFC700] transition-colors duration-300">
-                      Send Message
-                    </Button>
+                    <input type="text" placeholder="Your Name" className="w-full px-4 py-3 rounded-lg border border-[#D1D5DB] bg-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#FFD966]" />
+                    <input type="email" placeholder="Your Email" className="w-full px-4 py-3 rounded-lg border border-[#D1D5DB] bg-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#FFD966]" />
+                    <textarea placeholder="Your Message" rows={4} className="w-full px-4 py-3 rounded-lg border border-[#D1D5DB] bg-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#FFD966] resize-none" />
+                    <Button className="w-full bg-[#FFD966] hover:bg-[#FFF3B0] transition-colors duration-300">Send Message</Button>
                   </form>
                 </CardContent>
               </Card>
@@ -346,9 +242,7 @@ const Landing = () => {
       {/* Footer */}
       <footer className="bg-[#0A1A3F] text-[#FFFFFF] py-8 px-6">
         <div className="container mx-auto text-center">
-          <p className="text-[#FFFFFF]/70">
-            &copy; 2024 Agot's Restaurant. All rights reserved.
-          </p>
+          <p className="text-[#FFFFFF]/70">&copy; 2024 Agot's Restaurant. All rights reserved.</p>
         </div>
       </footer>
     </div>
